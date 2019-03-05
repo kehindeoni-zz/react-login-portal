@@ -4,7 +4,7 @@ import expect from 'expect';
 import { App } from './App';
 import { configure } from 'enzyme';
 import { Link } from 'react-router-dom';
-import { MemoryRouter } from 'react-router'
+import { MemoryRouter } from 'react-router';
 import Adapter from 'enzyme-adapter-react-16';
 import { mount, shallow } from 'enzyme';
 import { PropTypes } from 'prop-types';
@@ -12,7 +12,7 @@ import renderer from 'react-test-renderer';
 import {spy} from 'sinon';
 import { Provider } from 'react-redux';
 import { store } from './helpers';
-import configureStore from 'redux-mock-store'
+import configureStore from 'redux-mock-store';
 import { Router, Route } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute.js';
 
