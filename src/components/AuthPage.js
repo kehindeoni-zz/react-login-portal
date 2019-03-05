@@ -48,13 +48,13 @@ class AuthPage extends Component {
   }
 
   buttonText() {
-    const { buttonText, loggingIn, loggingInText } = this.props.dataProps;
-    return loggingIn ? loggingInText : buttonText;
+    const { buttonText, fetching, fetchingText } = this.props.dataProps;
+    return fetching ? fetchingText : buttonText;
   }
 
   render() {
     const { username, password, submitted } = this.state;
-    const { error, loggingIn, pageText, linkText, link } = this.props.dataProps;
+    const { error, pageText, linkText, link } = this.props.dataProps;
 
     return (
       <div className="col-md-6 col-md-offset-3">

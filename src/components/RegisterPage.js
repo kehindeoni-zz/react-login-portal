@@ -1,8 +1,9 @@
 import React, {Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../actions';
+import PropTypes from 'prop-types';
 import AuthPage from './AuthPage';
 
 export class RegisterPage extends Component {
@@ -13,19 +14,19 @@ export class RegisterPage extends Component {
 
   handleSubmit(username, password) {
     if (username && password) {
-      this.props.OnLoginUser(username, password);
+      this.props.onRegisterUser(username, password);
     }
   }
 
   render() {
-    const { error, loggingIn } = this.props;
-
+  	// console.log(history, 'ddhhdh')
+    const { error, fetching } = this.props;
     let props = {
       buttonText: 'Register',
       pageText: 'Register',
       linkText: 'Cancel',
-      loggingInText: 'Signing Up',
-      loggingIn: loggingIn,
+      fetchingText: 'Signing Up',
+      fetching: fetching,
       error: error,
       link: '/login'
     }
@@ -34,12 +35,27 @@ export class RegisterPage extends Component {
   }
 }
 
-// complete the below function
-function mapStateToProps(state) {
-
+RegisterPage.propTypes = {
+  history: PropTypes.object.isRequired
 }
 
+const  mapStateToProps = (state) => {
+  const { alert, authentication } = state;
+  return {
+    error: authentication.error,
+    fetching: authentication.fetching
+  }
+}
 
-export { RegisterPage as TestRegisterPage };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onRegisterUser: (username, password) => dispatch(userActions.register(username, password))
+  }
+}
 
+export const RegisterPageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(RegisterPage));
 
+export { RegisterPageContainer as TestRegisterPage };

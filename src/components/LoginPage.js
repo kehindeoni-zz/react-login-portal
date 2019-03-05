@@ -14,19 +14,19 @@ export default class LoginPage extends Component {
 
   handleSubmit(username, password) {
     if (username && password) {
-      this.props.OnLoginUser(username, password);
+      this.props.onLoginUser(username, password);
     }
   }
 
   render() {
-    const { error, loggingIn } = this.props;
+    const { error, fetching } = this.props;
 
     let props = {
       buttonText: 'Login',
       pageText: 'Login',
       linkText: 'Register',
-      loggingInText: 'Logging In',
-      loggingIn: loggingIn,
+      fetchingText: 'Logging In',
+      fetching: fetching,
       error: error,
       link: '/register'
     }
@@ -43,13 +43,13 @@ const  mapStateToProps = (state) => {
   const { alert, authentication } = state;
   return {
     error: authentication.error,
-    loggingIn: authentication.loggingIn
+    fetching: authentication.fetching
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    OnLoginUser: (username, password) => dispatch(userActions.login(username, password))
+    onLoginUser: (username, password) => dispatch(userActions.login(username, password))
   }
 }
 
