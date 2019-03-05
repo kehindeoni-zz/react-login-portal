@@ -46,13 +46,15 @@ export default class LoginPage extends Component {
     const { username, password } = this.state
 
     if (username && password) {
-      this.props.OnLoginUser();
+      this.props.OnLoginUser(username, password);
     }
-
   }
 
   render() {
     const { username, password, submitted } = this.state;
+    const { error, loggingIn } = this.props;
+
+    const loginButtonText = loggingIn ? 'Logging In' : 'Login'
 
     return (
       <div className="col-md-6 col-md-offset-3">
@@ -72,10 +74,12 @@ export default class LoginPage extends Component {
               <div className="help-block">Password is required</div>
             }
           </div>
+          { error &&
+            <div className="alert alert-danger" role="alert">{error}</div>
+          }
           <div className="form-group">
-            <button className="btn btn-primary" onClick={this.handleSubmit}>Login</button>
+            <button className="btn btn-primary" onClick={this.handleSubmit}>{loginButtonText}</button>
             <Link to="/register"> <button className="btn btn-link">Register</button></Link>
-
           </div>
         </form>
       </div>
@@ -87,15 +91,17 @@ LoginPage.propTypes = {
   history: PropTypes.object.isRequired
 }
 
- const  mapStateToProps = (state) => {
-   const { alert } = state;
-   return {
-     alert
-   };
- }
+const  mapStateToProps = (state) => {
+  const { alert, authentication } = state;
+  return {
+    error: authentication.error,
+    loggingIn: authentication.loggingIn
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    OnLoginUser: (username, password) => dispatch(userActions.login(username, password))
   }
 }
 
