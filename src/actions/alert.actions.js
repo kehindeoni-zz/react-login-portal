@@ -7,6 +7,7 @@ export const alertActions = {
 };
 
 function success(message) {
+  return () => {console.log('here')};
 }
 
 function error(message) {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component } from 'react';
+import React, {Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -61,7 +60,7 @@ export class RegisterPage extends Component {
 
 // complete the below function
 function mapStateToProps(state) {
-    
+
 }
 
 export { RegisterPage as TestRegisterPage };
