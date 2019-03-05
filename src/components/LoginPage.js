@@ -17,14 +17,37 @@ export default class LoginPage extends Component {
       submitted: false
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
+  clearFiedErrors() {
+    if(this.state.submitted) {
+      this.setState({ submitted: false });
+    }
+  }
+
+  handleUsernameChange(e) {
+    this.clearFiedErrors();
+
+    this.setState({ username: e.target.value });
+  }
+
+  handlePasswordChange (e) {
+    this.clearFiedErrors();
+
+    this.setState({ password: e.target.value });
   }
 
   handleSubmit(e) {
+    e.preventDefault();
+    this.setState({ submitted: true });
+    const { username, password } = this.state
+
+    if (username && password) {
+      this.props.OnLoginUser();
+    }
 
   }
 
@@ -37,20 +60,20 @@ export default class LoginPage extends Component {
         <form name="form">
           <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
             <label htmlFor="username">Username</label>
-            <input type="text" className="form-control username" name="username" />
+            <input type="text" className="form-control username" name="username" onChange={this.handleUsernameChange} />
             {submitted && !username &&
               <div className="help-block">Username is required</div>
             }
           </div>
           <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
             <label htmlFor="password">Password</label>
-            <input type="password" className="form-control" name="password"/>
+            <input type="password" className="form-control" name="password" onChange={this.handlePasswordChange} />
             {submitted && !password &&
               <div className="help-block">Password is required</div>
             }
           </div>
           <div className="form-group">
-            <Link to="/login"><button className="btn btn-primary">Login</button></Link>
+            <button className="btn btn-primary" onClick={this.handleSubmit}>Login</button>
             <Link to="/register"> <button className="btn btn-link">Register</button></Link>
 
           </div>
