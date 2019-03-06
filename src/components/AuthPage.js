@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import { userActions } from '../actions';
 import PropTypes from 'prop-types'
 
 class AuthPage extends Component {
+  static propTypes = {
+    buttonText: PropTypes.string.isRequired,
+    pageText: PropTypes.string.isRequired,
+    linkText: PropTypes.string.isRequired,
+    alertMessage: PropTypes.string.isRequired,
+    alertType: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired
+  }
+   
+  static defaultProps = {
+    buttonText: 'Login',
+    pageText: 'Login',
+    linkText: 'Register',
+    alertMessage: '',
+    alertType: '',
+    link: '/register'
+  }
+
   constructor(props) {
     super(props);
 
@@ -21,7 +37,7 @@ class AuthPage extends Component {
   }
 
   clearFiedErrors() {
-    if(this.state.submitted) {
+    if (this.state.submitted) {
       this.props.clearAlert();
       this.setState({ submitted: false });
     }
@@ -33,7 +49,7 @@ class AuthPage extends Component {
     this.setState({ username: e.target.value });
   }
 
-  handlePasswordChange (e) {
+  handlePasswordChange(e) {
     this.clearFiedErrors();
 
     this.setState({ password: e.target.value });
@@ -70,11 +86,11 @@ class AuthPage extends Component {
 
   render() {
     const { username, password, submitted } = this.state;
-    const { pageText, linkText, link, alertType, buttonText } = this.props.dataProps;
+    const { pageText, linkText, link, buttonText } = this.props.dataProps;
 
     return (
       <div className="col-md-6 col-md-offset-3">
-        <h2>{ pageText }</h2>
+        <h2>{pageText}</h2>
         <form name="form">
           <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
             <label htmlFor="username">Username</label>

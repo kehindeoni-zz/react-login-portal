@@ -6,6 +6,20 @@ import PropTypes from 'prop-types';
 import AuthPage from './AuthPage';
 
 export class TestLoginPage extends Component {
+  static propTypes = {
+    alertMessage: PropTypes.string.isRequired,
+    alertType: PropTypes.string.isRequired,
+    clearAlert: PropTypes.func,
+    onLoginUser: PropTypes.func
+  }
+  
+  static defaultProps = {
+    alertMessage: "",
+    alertType: "",
+    clearAlert: () => {},
+    onLoginUser: () => {}
+  }
+
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,13 +41,12 @@ export class TestLoginPage extends Component {
   }
 
   render() {
-    const { alertMessage, fetching, alertType } = this.props;
+    const { alertMessage, alertType } = this.props;
 
     let props = {
       buttonText: 'Login',
       pageText: 'Login',
       linkText: 'Register',
-      fetchingText: 'Logging In',
       alertMessage: alertMessage,
       alertType: alertType,
       link: '/register'

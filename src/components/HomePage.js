@@ -3,8 +3,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../actions';
+import PropTypes from 'prop-types';
 
 export class HomePage extends Component {
+  static propTypes = {
+    handleLogout: PropTypes.func
+  }
+  
+  static defaultProps = {
+    handleLogout: () => {}
+  }
+
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);

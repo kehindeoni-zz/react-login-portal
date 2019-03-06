@@ -6,6 +6,20 @@ import PropTypes from 'prop-types';
 import AuthPage from './AuthPage';
 
 export class TestRegisterPage extends Component {
+  static propTypes = {
+    alertMessage: PropTypes.string.isRequired,
+    alertType: PropTypes.string.isRequired,
+    clearAlert: PropTypes.func,
+    onRegisterUser: PropTypes.func
+  }
+  
+  static defaultProps = {
+    alertMessage: "",
+    alertType: "",
+    clearAlert: () => {},
+    onRegisterUser: () => {}
+  }
+
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,7 +46,6 @@ export class TestRegisterPage extends Component {
       buttonText: 'Register',
       pageText: 'Register',
       linkText: 'Cancel',
-      fetchingText: 'Signing Up',
       alertMessage: alertMessage,
       alertType: alertType,
       link: '/login'
@@ -43,7 +56,6 @@ export class TestRegisterPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(this.props, '======-=-=-')
   const { alert } = state;
   return {
     alertMessage: alert.message,
