@@ -43,7 +43,8 @@ export class RegisterPage extends Component {
   }
 }
 
-const  mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
+  console.log(state, '-=-=-=-=-==-==-=-=-=-=-=-');
   const { alert } = state;
   return {
     alertMessage: alert.message,

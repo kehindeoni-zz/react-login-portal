@@ -11,11 +11,16 @@ function login(username, password) {
     body: JSON.stringify({ username, password })
   };
 
-  return fetch('/users/authenticate', requestOptions).then(handleResponse);
+  return fetch('/users/authenticate', requestOptions)
+    .then(handleResponse)
+    .then(function(data) {
+      localStorage.setItem('user', JSON.stringify(data));
+      return data;
+    });
 }
 
 function logout() {
-    // remove user from local storage to log user out
+  localStorage.removeItem('user');
 }
 
 function register(username, password) {

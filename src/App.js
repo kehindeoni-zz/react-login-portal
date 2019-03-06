@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
-import { Switch, withRouter, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute.js';
-import { history } from './helpers';
-import { alertActions } from './actions';
+import { BrowserRouter } from 'react-router-dom';
 import { HomePage } from './components/HomePage';
 import { LoginPageContainer } from './components/LoginPage';
 import { RegisterPageContainer } from './components/RegisterPage';
 
-class App extends Component {
+export class App extends React.Component  {
   constructor(props) {
     super(props);
-
-    this.state = {
-      showLoginPage: true,
-      showRegisterPage: props.showRegisterPage
-    };
   }
 
   render() {
     return (
       <div className="container">
-        <Switch>
-          <PrivateRoute exact path='/' component={HomePage} />
-          <Route path="/login" component={LoginPageContainer} />
-          <Route path="/register" component={RegisterPageContainer} />
-        </Switch>
+        <BrowserRouter>
+          <div>
+            <PrivateRoute exact path='/' component={HomePage} />
+            <Route exact path="/login" component={LoginPageContainer} />
+            <Route exact path="/register" component={RegisterPageContainer} />
+          </div>
+        </BrowserRouter>
       </div>
     );
   }
 }
-
-export default withRouter(App)
-// { App as App };

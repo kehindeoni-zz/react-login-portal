@@ -30,6 +30,7 @@ describe("Test User service", () => {
   it('check if a fetch promise is returned and localStorage is used in login', async () => {
     spy(localStorage, "setItem");
     let res = await userService.login("username321", "password321");
+
     //login successful
     expect(res.username).toEqual("username321");
     expect(localStorage.setItem.called).toEqual(true);

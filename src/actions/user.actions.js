@@ -1,7 +1,7 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
 import { alertActions } from './alert.actions';
-import { history } from '../helpers';
+import { history, store } from '../helpers';
 
 export const userActions = {
   login,
@@ -10,17 +10,14 @@ export const userActions = {
 };
 
 function loginRequest() { return { type: userConstants.LOGIN_REQUEST }; }
-function loginRequestSuccess(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-function loginFailure(error) { return { type: userConstants.LOGIN_FAILURE, error }; }
-function registerRequest() { return { type: userConstants.REGISTER_REQUEST }; }
-  // function registerSuccess(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-function registerFailure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
 
 function login(username, password) {
+  function loginRequestSuccess(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+  function loginFailure(error) { return { type: userConstants.LOGIN_FAILURE, error }; }
+
   return dispatch => {
     dispatch(loginRequest());
     userService.login(username, password).then( response => {
-      localStorage.setItem('user', JSON.stringify(response));
       history.push('/');
     }).catch(message => {
       dispatch(alertActions.error(message));
@@ -30,13 +27,15 @@ function login(username, password) {
 }
 
 function logout() {
-  return dispatch => {
-    localStorage.removeItem('user');
-  }
+  userService.logout();
+  return { type: userConstants.LOGOUT };
 }
 
 function register(username, password) {
-  return (dispatch, store) => {
+  function registerRequest() { return { type: userConstants.REGISTER_REQUEST }; }
+  function registerFailure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
+
+  return (dispatch) => {
     dispatch(loginRequest());
     userService.register(username, password).then( response => {
       dispatch(alertActions.success('Registration Successful'));
