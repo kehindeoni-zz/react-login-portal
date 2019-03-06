@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions, alertActions } from '../actions';
@@ -44,10 +44,6 @@ export default class LoginPage extends Component {
   }
 }
 
-LoginPage.propTypes = {
-  history: PropTypes.object.isRequired
-}
-
 const  mapStateToProps = (state) => {
   const { alert } = state;
 
@@ -67,6 +63,6 @@ const mapDispatchToProps = (dispatch) => {
 export const LoginPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(LoginPage));
+)(LoginPage);
 
 export { LoginPageContainer as TestLoginPage };

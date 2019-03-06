@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../actions';
@@ -91,10 +91,6 @@ class AuthPage extends Component {
             }
           </div>
           <div>{this.renderAlertMessage()}</div>
-
-          {
-            // this.renderAlertMessage()
-          }
 
           <div className="form-group">
             <button className="btn btn-primary" onClick={this.handleSubmit}>{buttonText}</button>

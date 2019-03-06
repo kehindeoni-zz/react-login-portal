@@ -1,5 +1,5 @@
 import React, {Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions, alertActions } from '../actions';
@@ -43,10 +43,6 @@ export class RegisterPage extends Component {
   }
 }
 
-RegisterPage.propTypes = {
-  history: PropTypes.object.isRequired
-}
-
 const  mapStateToProps = (state) => {
   const { alert } = state;
   return {
@@ -65,6 +61,6 @@ const mapDispatchToProps = (dispatch) => {
 export const RegisterPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(RegisterPage));
+)(RegisterPage);
 
 export { RegisterPageContainer as TestRegisterPage };

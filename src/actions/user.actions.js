@@ -10,7 +10,7 @@ export const userActions = {
 };
 
 function loginRequest() { return { type: userConstants.LOGIN_REQUEST }; }
-  function loginRequestSuccess(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+function loginRequestSuccess(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
 function loginFailure(error) { return { type: userConstants.LOGIN_FAILURE, error }; }
 function registerRequest() { return { type: userConstants.REGISTER_REQUEST }; }
   // function registerSuccess(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
@@ -20,9 +20,8 @@ function login(username, password) {
   return dispatch => {
     dispatch(loginRequest());
     userService.login(username, password).then( response => {
-      console.log(response, 'hhfhfh')
-      // dispatch(loginRequestSuccess())
-      dispatch(history.push('/'));
+      localStorage.setItem('user', JSON.stringify(response));
+      history.push('/');
     }).catch(message => {
       dispatch(alertActions.error(message));
       dispatch(loginFailure(message));
@@ -31,7 +30,9 @@ function login(username, password) {
 }
 
 function logout() {
-    // complete this function
+  return dispatch => {
+    localStorage.removeItem('user');
+  }
 }
 
 function register(username, password) {
@@ -39,7 +40,7 @@ function register(username, password) {
     dispatch(loginRequest());
     userService.register(username, password).then( response => {
       dispatch(alertActions.success('Registration Successful'));
-      // dispatch(history.push('/login'));
+      history.push('/login');
     }).catch(message => {
       dispatch(alertActions.error(message));
       dispatch(registerFailure(message));
