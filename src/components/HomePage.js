@@ -9,7 +9,7 @@ export class HomePage extends Component {
   static propTypes = {
     handleLogout: PropTypes.func
   }
-  
+
   static defaultProps = {
     handleLogout: () => {}
   }
