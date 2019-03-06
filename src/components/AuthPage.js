@@ -22,6 +22,7 @@ class AuthPage extends Component {
 
   clearFiedErrors() {
     if(this.state.submitted) {
+      this.props.clearAlert();
       this.setState({ submitted: false });
     }
   }
@@ -47,14 +48,29 @@ class AuthPage extends Component {
     this.props.onHandleSubmit(username, password);
   }
 
-  buttonText() {
-    const { buttonText, fetching, fetchingText } = this.props.dataProps;
-    return fetching ? fetchingText : buttonText;
+  getClassName() {
+    return `alert alert-dismissible ${this.props.dataProps.alertType}`;
+  }
+
+  getAlertMessage() {
+    return this.props.dataProps.alertMessage;
+  }
+
+  renderAlertMessage() {
+    if (!this.props.dataProps.alertMessage) return null;
+    return (
+      <div className={this.getClassName()} role="alert">
+        {this.getAlertMessage()}
+        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    );
   }
 
   render() {
     const { username, password, submitted } = this.state;
-    const { error, pageText, linkText, link } = this.props.dataProps;
+    const { pageText, linkText, link, alertType, buttonText } = this.props.dataProps;
 
     return (
       <div className="col-md-6 col-md-offset-3">
@@ -74,11 +90,14 @@ class AuthPage extends Component {
               <div className="help-block">Password is required</div>
             }
           </div>
-          { error &&
-            <div className="alert alert-danger" role="alert">{error}</div>
+          <div>{this.renderAlertMessage()}</div>
+
+          {
+            // this.renderAlertMessage()
           }
+
           <div className="form-group">
-            <button className="btn btn-primary" onClick={this.handleSubmit}>{this.buttonText()}</button>
+            <button className="btn btn-primary" onClick={this.handleSubmit}>{buttonText}</button>
             <Link to={link}> <button className="btn btn-link">{linkText}</button></Link>
           </div>
         </form>

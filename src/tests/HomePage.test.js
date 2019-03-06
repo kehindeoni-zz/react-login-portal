@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import { mount, shallow } from 'enzyme';
 
-
 configure({ adapter: new Adapter() });
-
 
 describe("Test HomePage component", () => {
   it('uses Router for logout functionality', () => {

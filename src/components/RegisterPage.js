@@ -2,7 +2,7 @@ import React, {Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../actions';
+import { userActions, alertActions } from '../actions';
 import PropTypes from 'prop-types';
 import AuthPage from './AuthPage';
 
@@ -10,6 +10,11 @@ export class RegisterPage extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.clearAlert = this.clearAlert.bind(this);
+  }
+
+  componentDidMount() {
+    this.clearAlert();
   }
 
   handleSubmit(username, password) {
@@ -18,20 +23,23 @@ export class RegisterPage extends Component {
     }
   }
 
+  clearAlert() {
+  	this.props.clearAlert();
+  }
+
   render() {
-  	// console.log(history, 'ddhhdh')
-    const { error, fetching } = this.props;
+    const { alertMessage, alertType } = this.props;
     let props = {
       buttonText: 'Register',
       pageText: 'Register',
       linkText: 'Cancel',
       fetchingText: 'Signing Up',
-      fetching: fetching,
-      error: error,
+      alertMessage: alertMessage,
+      alertType: alertType,
       link: '/login'
     }
 
-    return <AuthPage onHandleSubmit={this.handleSubmit} dataProps={props} />;
+    return <AuthPage onHandleSubmit={this.handleSubmit} clearAlert={this.clearAlert} dataProps={props} />;
   }
 }
 
@@ -40,16 +48,17 @@ RegisterPage.propTypes = {
 }
 
 const  mapStateToProps = (state) => {
-  const { alert, authentication } = state;
+  const { alert } = state;
   return {
-    error: authentication.error,
-    fetching: authentication.fetching
+    alertMessage: alert.message,
+    alertType: alert.type
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRegisterUser: (username, password) => dispatch(userActions.register(username, password))
+    onRegisterUser: (username, password) => dispatch(userActions.register(username, password)),
+    clearAlert: () => dispatch(alertActions.clear())
   }
 }
 
