@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../actions';
 
-export default class HomePage extends Component {
+export class HomePage extends Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
   handleLogout() {
-    this.props.handleLogout();
+    this.props.handleLogout && this.props.handleLogout();
   }
 
   render() {
@@ -36,9 +36,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const HomePageContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(HomePage);
-
-export { HomePageContainer as HomePage };

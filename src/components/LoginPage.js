@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions, alertActions } from '../actions';
 import PropTypes from 'prop-types';
 import AuthPage from './AuthPage';
 
-export default class LoginPage extends Component {
+export class TestLoginPage extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +17,7 @@ export default class LoginPage extends Component {
   }
 
   clearAlert() {
-    this.props.clearAlert();
+    this.props.clearAlert && this.props.clearAlert();
   }
 
   handleSubmit(username, password) {
@@ -60,9 +59,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const LoginPageContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPage);
+)(TestLoginPage);
 
-export { LoginPageContainer as TestLoginPage };

@@ -1,12 +1,11 @@
 import React, {Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions, alertActions } from '../actions';
 import PropTypes from 'prop-types';
 import AuthPage from './AuthPage';
 
-export class RegisterPage extends Component {
+export class TestRegisterPage extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +23,7 @@ export class RegisterPage extends Component {
   }
 
   clearAlert() {
-  	this.props.clearAlert();
+    this.props.clearAlert && this.props.clearAlert();
   }
 
   render() {
@@ -44,7 +43,7 @@ export class RegisterPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state, '-=-=-=-=-==-==-=-=-=-=-=-');
+  console.log(this.props, '======-=-=-')
   const { alert } = state;
   return {
     alertMessage: alert.message,
@@ -59,9 +58,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const RegisterPageContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RegisterPage);
-
-export { RegisterPageContainer as TestRegisterPage };
+)(TestRegisterPage);
