@@ -12,12 +12,12 @@ export class TestLoginPage extends Component {
     clearAlert: PropTypes.func,
     onLoginUser: PropTypes.func
   }
-  
+
   static defaultProps = {
     alertMessage: "",
     alertType: "",
-    clearAlert: () => {},
-    onLoginUser: () => {}
+    clearAlert: () => { },
+    onLoginUser: () => { }
   }
 
   constructor(props) {
@@ -56,7 +56,7 @@ export class TestLoginPage extends Component {
   }
 }
 
-const  mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   const { alert } = state;
 
   return {
